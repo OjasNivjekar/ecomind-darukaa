@@ -40,11 +40,11 @@ Actionable recommendation with metrics, timeline, confidence, and citations
 
 ✨ Features
 
-Environmental analysis
+Environmental Analysis
 
 Users describe environmental conditions in natural language. EcoMind extracts relevant context and identifies biodiversity risks.
 
-Multi-metric reasoning
+Multi-Metric Reasoning
 
 The system models relationships between:
 
@@ -54,7 +54,7 @@ Land use ↔ habitat quality and fragmentation
 Climate ↔ soil moisture
 Soil conditions ↔ vegetation ↔ pollinators
 
-Evidence-grounded recommendations
+Evidence-Grounded Recommendations
 
 A curated evidence layer supports recommendations with:
 
@@ -66,7 +66,7 @@ A curated evidence layer supports recommendations with:
 
 Recommendations are omitted when supporting evidence is unavailable. The synthesis layer is instructed not to invent sources, statistics, measurements, relationships, or unsupported benefits.
 
-Structured outputs
+Structured Outputs
 
 Each recommendation can include:
 
@@ -78,7 +78,7 @@ Time horizon| Expected implementation horizon
 Confidence| Confidence level
 Citations| Supporting evidence
 
-Conversational memory
+Conversational Memory
 
 Session-based conversations retain environmental context and apply follow-up constraints to updated assessments.
 
@@ -113,8 +113,8 @@ data/
 └── documents/
     └── curated_evidence.json
 
-- "environmental_knowledge.json": predefined environmental relationships.
-- "curated_evidence.json": scientific sources used to ground recommendations.
+- "environmental_knowledge.json": Predefined environmental relationships.
+- "curated_evidence.json": Scientific sources used to ground recommendations.
 
 🛠️ Technology Stack
 
@@ -156,7 +156,7 @@ Prerequisites
 - npm
 - Git
 
-Clone and install
+Clone and Install
 
 git clone https://github.com/<your-username>/<your-repository>.git
 cd ecomind
@@ -177,7 +177,7 @@ cd frontend
 npm install
 cd ..
 
-Configure environment variables
+Configure Environment Variables
 
 Create ".env" from ".env.example":
 
@@ -188,7 +188,7 @@ VITE_API_URL=<backend-url>
 
 Configure provider credentials as required. Never commit secrets or API keys.
 
-Run the application
+Run the Application
 
 Start the backend:
 
@@ -203,7 +203,7 @@ npm run dev
 
 📡 API
 
-Health check
+Health Check
 
 GET /api/health
 
@@ -214,7 +214,7 @@ Response:
   "service": "ecomind-api"
 }
 
-Analyze an environmental situation
+Analyze an Environmental Situation
 
 POST /api/analyze
 
@@ -232,9 +232,9 @@ The response includes an assessment, environmental interactions, recommendations
 
 Representative scenarios cover:
 
-- Orchards: soil carbon, pH, rainfall, moisture, pollinators, and irrigation constraints
-- Rivers: flow, riparian vegetation, runoff, erosion, aquatic biodiversity, and development constraints
-- Conversational memory: follow-up constraints applied to prior environmental context
+- Orchards: Soil carbon, pH, rainfall, moisture, pollinators, and irrigation constraints
+- Rivers: Flow, riparian vegetation, runoff, erosion, aquatic biodiversity, and development constraints
+- Conversational memory: Follow-up constraints applied to prior environmental context
 
 🎯 Design Principles
 
