@@ -25,8 +25,10 @@ def extract_environmental_data(query: str) -> dict[str, Any]:
     number_patterns = {
         "soil_organic_carbon": (
             r"(?:soc|soil organic carbon|organic carbon)\s*"
-            r"(?:=|:|is|of)?\s*"
-            r"(\d+(?:\.\d+)?)\s*%?"
+            r"(?:=|:|is|of)?\s*(\d+(?:\.\d+)?)\s*%?"
+            r"|"
+            r"(\d+(?:\.\d+)?)\s*%\s*"
+            r"(?:soc|soil organic carbon|organic carbon)"
         ),
         "soil_ph": (
             r"(?:soil )?p\s*h\s*"
@@ -38,7 +40,13 @@ def extract_environmental_data(query: str) -> dict[str, Any]:
     for field, pattern in number_patterns.items():
         match = re.search(pattern, text)
         if match:
-            values[field] = float(match.group(1))
+            values[field] = float(
+                next(
+                    group
+                    for group in match.groups()
+                    if group is not None
+                )
+            )
 
     # ---------------------------------------------------------
     # Rainfall
@@ -222,6 +230,7 @@ def extract_environmental_data(query: str) -> dict[str, Any]:
     if (
         "declining water levels" in text
         or "water levels during summer" in text
+        or "water levels are declining" in text
     ):
         values["water_level_trend"] = "declining"
         values["water_availability"] = "limited"
@@ -230,6 +239,7 @@ def extract_environmental_data(query: str) -> dict[str, Any]:
         "irrigation water is limited" in text
         or "limited irrigation" in text
         or "water is limited" in text
+        or "water availability is limited" in text
     ):
         values["water_availability"] = "limited"
 
@@ -244,10 +254,28 @@ def extract_environmental_data(query: str) -> dict[str, Any]:
         values["habitat_connectivity"] = "low"
 
     if (
+        "reduced flow" in text
+        or "reduced river flow" in text
+        or "flow has reduced" in text
+        or "river flow has reduced" in text
+        or "low flow" in text
+    ):
+        values["flow_regime"] = "reduced"
+
+    if (
         "riparian vegetation has been cleared" in text
         or "riparian vegetation cleared" in text
     ):
         values["riparian_vegetation"] = "cleared"
+        values["habitat_diversity"] = "low"
+
+    if (
+        "riparian vegetation is sparse" in text
+        or "sparse riparian vegetation" in text
+        or "riparian vegetation is limited" in text
+        or "sparse vegetation along the river" in text
+    ):
+        values["riparian_vegetation"] = "sparse"
         values["habitat_diversity"] = "low"
 
     if (
@@ -273,6 +301,17 @@ def extract_environmental_data(query: str) -> dict[str, Any]:
         r"fewer\s+(?:fish|frogs|aquatic insects)"
         r"|fewer fish.*aquatic insects",
         text,
+    ):
+        values["biodiversity_status"] = "low"
+
+    if (
+        "fish populations have declined" in text
+        or "fish population has declined" in text
+        or "fish populations declined" in text
+        or "fish population declined" in text
+        or "fish decline" in text
+        or "aquatic biodiversity has declined" in text
+        or "aquatic biodiversity is declining" in text
     ):
         values["biodiversity_status"] = "low"
 
