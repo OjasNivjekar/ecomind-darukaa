@@ -3,7 +3,18 @@ import { createRoot } from 'react-dom/client'
 import './styles.css'
 
 type Recommendation = { action:string; why_it_works:string; impacted_metrics:string[]; time_horizon:string; confidence:string; citations:string[] }
-type Result = { reply:string; needs_clarification:boolean; assessment:string; key_interactions:string[]; recommendations:Recommendation[]; impacted_metrics:string[]; confidence:string; sources:{id:string;label:string;title:string;organization:string;year:string;url:string;excerpt:string}[]; llm_used:boolean }
+type Result = {
+  reply:string
+  needs_clarification:boolean
+  assessment:string
+  key_interactions:string[]
+  recommendations:Recommendation[]
+  impacted_metrics:string[]
+  confidence:string
+  environmental_data:Record<string, unknown>
+  sources:{id:string;label:string;title:string;organization:string;year:string;url:string;excerpt:string}[]
+  llm_used:boolean
+}
 type FollowUp = { user:string; assistant:string; result:Result }
 type Conversation = { id:string; sessionId:string; originalInput:string; result:Result; followUps:FollowUp[] }
 const API = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
