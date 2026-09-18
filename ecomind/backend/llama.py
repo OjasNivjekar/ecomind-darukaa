@@ -42,7 +42,7 @@ Keep explanations concise."""
         # Diagnostic: confirms the key exists without exposing it.
         print(
             f"GROQ_API_KEY present: {bool(api_key)}, "
-            f"model: {os.getenv('LLAMA_MODEL', 'llama-3.1-8b-instant')}",
+            f"model: {os.getenv('LLAMA_MODEL', 'openai/gpt-oss-20b')}",
             flush=True,
         )
 
