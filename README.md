@@ -10,33 +10,22 @@ It connects soil health, moisture, rainfall, land use, habitat quality, and biod
 
 - Live application: Coming soon
 - API: Coming soon
-- Repository: "https://github.com/<your-username>/<your-repository>"
+- Repository: Coming soon
 
 🎯 Problem and Solution
 
-Environmental decisions depend on interacting variables rather than isolated measurements:
+Environmental decisions depend on interacting variables rather than isolated measurements.
 
-Low soil organic carbon + low rainfall
-        ↓
-Reduced moisture retention
-        ↓
-Plant stress and lower habitat quality
-        ↓
-Reduced biodiversity support
+Low soil organic carbon combined with low rainfall can reduce moisture retention, increase plant stress, lower habitat quality, and reduce biodiversity support.
 
 Generic LLMs can also produce plausible but unsupported advice. EcoMind addresses both challenges through an evidence-grounded pipeline:
 
-Environmental observation
-        ↓
-Input understanding
-        ↓
-Structured knowledge and multi-metric reasoning
-        ↓
-Scientific evidence retrieval
-        ↓
-Grounded Llama synthesis
-        ↓
-Actionable recommendation with metrics, timeline, confidence, and citations
+1. Environmental observation
+2. Input understanding
+3. Structured knowledge and multi-metric reasoning
+4. Scientific evidence retrieval
+5. Grounded Llama synthesis
+6. Actionable recommendation with metrics, timeline, confidence, and citations
 
 ✨ Features
 
@@ -48,11 +37,11 @@ Multi-Metric Reasoning
 
 The system models relationships between:
 
-Soil health ↔ water availability
-Water availability ↔ species survival
-Land use ↔ habitat quality and fragmentation
-Climate ↔ soil moisture
-Soil conditions ↔ vegetation ↔ pollinators
+- Soil health and water availability
+- Water availability and species survival
+- Land use, habitat quality, and fragmentation
+- Climate and soil moisture
+- Soil conditions, vegetation, and pollinators
 
 Evidence-Grounded Recommendations
 
@@ -70,13 +59,12 @@ Structured Outputs
 
 Each recommendation can include:
 
-Field| Description
-Action| Recommended intervention
-Why it works| Ecological reasoning
-Impacted metrics| Environmental variables affected
-Time horizon| Expected implementation horizon
-Confidence| Confidence level
-Citations| Supporting evidence
+- Action: Recommended intervention
+- Why it works: Ecological reasoning
+- Impacted metrics: Environmental variables affected
+- Time horizon: Expected implementation horizon
+- Confidence: Confidence level
+- Citations: Supporting evidence
 
 Conversational Memory
 
@@ -84,19 +72,15 @@ Session-based conversations retain environmental context and apply follow-up con
 
 🏗️ Architecture
 
-React frontend
-    ↓
-FastAPI validation and session handling
-    ↓
-Structured environmental knowledge
-    ↓
-Multi-metric ecological reasoning
-    ↓
-RAG with curated evidence and FAISS
-    ↓
-Llama synthesis
-    ↓
-Assessment, recommendations, metrics, confidence, and sources
+EcoMind uses the following architecture:
+
+1. React frontend
+2. FastAPI validation and session handling
+3. Structured environmental knowledge
+4. Multi-metric ecological reasoning
+5. RAG with curated evidence and FAISS
+6. Llama synthesis
+7. Assessment, recommendations, metrics, confidence, and sources
 
 EcoMind separates:
 
@@ -108,11 +92,6 @@ EcoMind separates:
 
 📚 Knowledge and RAG
 
-data/
-├── environmental_knowledge.json
-└── documents/
-    └── curated_evidence.json
-
 - "environmental_knowledge.json": Predefined environmental relationships.
 - "curated_evidence.json": Scientific sources used to ground recommendations.
 
@@ -122,150 +101,6 @@ data/
 - Backend: Python, FastAPI, Pydantic, Uvicorn
 - AI: Llama, RAG, FAISS, structured environmental knowledge
 - Deployment: Vercel frontend, Render backend, hosted Llama inference
-
-📂 Project Structure
-
-ecomind/
-├── backend/
-│   ├── main.py
-│   ├── service.py
-│   ├── llama.py
-│   ├── extractor.py
-│   └── schemas.py
-├── data/
-│   ├── environmental_knowledge.json
-│   └── documents/
-│       └── curated_evidence.json
-├── frontend/
-│   ├── src/
-│   │   ├── main.tsx
-│   │   └── styles.css
-│   ├── package.json
-│   └── vite.config.ts
-├── requirements.txt
-├── .env.example
-├── README.md
-└── render.yaml
-
-⚙️ Local Development
-
-Prerequisites
-
-- Python 3.10+
-- Node.js 18+
-- npm
-- Git
-
-Clone and Install
-
-git clone https://github.com/<your-username>/<your-repository>.git
-cd ecomind
-
-python -m venv .venv
-
-Activate the environment on Windows:
-
-.venv\Scripts\activate
-
-Install backend dependencies:
-
-pip install -r requirements.txt
-
-Install frontend dependencies:
-
-cd frontend
-npm install
-cd ..
-
-Configure Environment Variables
-
-Create ".env" from ".env.example":
-
-LLAMA_BASE_URL=<llama-endpoint>
-LLAMA_MODEL=<llama-model>
-LLAMA_TIMEOUT_SECONDS=45
-VITE_API_URL=<backend-url>
-
-Configure provider credentials as required. Never commit secrets or API keys.
-
-Run the Application
-
-Start the backend:
-
-uvicorn backend.main:app --reload
-
-API: "http://127.0.0.1:8000"
-
-Start the frontend in another terminal:
-
-cd frontend
-npm run dev
-
-📡 API
-
-Health Check
-
-GET /api/health
-
-Response:
-
-{
-  "status": "ok",
-  "service": "ecomind-api"
-}
-
-Analyze an Environmental Situation
-
-POST /api/analyze
-
-Request:
-
-{
-  "query": "My orchard has low soil organic carbon, declining summer moisture and fewer pollinators.",
-  "environmental_data": {},
-  "session_id": "example-session-id"
-}
-
-The response includes an assessment, environmental interactions, recommendations, impacted metrics, time horizon, confidence, scientific sources, and LLM usage status.
-
-🧪 Validation
-
-Representative scenarios cover:
-
-- Orchards: Soil carbon, pH, rainfall, moisture, pollinators, and irrigation constraints
-- Rivers: Flow, riparian vegetation, runoff, erosion, aquatic biodiversity, and development constraints
-- Conversational memory: Follow-up constraints applied to prior environmental context
-
-🎯 Design Principles
-
-1. Evidence before generation
-2. Reason across environmental variables
-3. Avoid generic advice
-4. Explain supported causal chains
-5. Make recommendations traceable
-6. Adapt interventions to real-world constraints
-
-📈 Future Extensions
-
-- Geospatial and GIS-based habitat analysis
-- Live climate and weather data
-- Satellite land-cover analysis
-- Hydrological integration
-- Species-specific indicators
-- Environmental trend monitoring
-- Automated evidence updates
-- Ecosystem-specific knowledge graphs
-
-🔐 Security
-
-Supply environment-specific values through environment variables:
-
-LLAMA_BASE_URL
-LLAMA_MODEL
-LLAMA_TIMEOUT_SECONDS
-VITE_API_URL
-
-Never commit API credentials or secrets to Git.
 
 📜 License
 
@@ -279,10 +114,4 @@ Built by:
 
 - Ojas Nivjekar
 
-Independent project
-
-🌍 Vision
-
-«Make biodiversity intelligence more accessible by turning complex environmental interactions and scientific evidence into understandable, actionable decisions.»
-
-🌱 Understand the ecosystem. Connect the variables. Act on evidence.
+Independent project.
