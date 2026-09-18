@@ -39,7 +39,18 @@ Keep explanations concise."""
     try:
         api_key = os.getenv("GROQ_API_KEY")
 
+        # Diagnostic: confirms the key exists without exposing it.
+        print(
+            f"GROQ_API_KEY present: {bool(api_key)}, "
+            f"model: {os.getenv('LLAMA_MODEL', 'llama-3.1-8b-instant')}",
+            flush=True,
+        )
+
         if not api_key:
+            print(
+                "LLAMA/GROQ ERROR: GROQ_API_KEY is missing",
+                flush=True,
+            )
             return None
 
         response = requests.post(
@@ -81,12 +92,16 @@ Keep explanations concise."""
 
         result = json.loads(content)
 
+        print(
+            "LLAMA/GROQ: response received successfully",
+            flush=True,
+        )
+
         return result if isinstance(result, dict) else None
 
-    except (
-        requests.RequestException,
-        KeyError,
-        ValueError,
-        TypeError,
-    ):
+    except Exception as e:
+        print(
+            f"LLAMA/GROQ ERROR: {type(e).__name__}: {e}",
+            flush=True,
+        )
         return None
