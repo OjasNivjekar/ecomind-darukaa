@@ -62,7 +62,7 @@ Keep explanations concise."""
             json={
                 "model": os.getenv(
                     "LLAMA_MODEL",
-                    "llama-3.1-8b-instant"
+                    "openai/gpt-oss-20b"
                 ),
                 "messages": [
                     {
